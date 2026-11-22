@@ -8,6 +8,7 @@ let todos = [];
 // LST
 function saveTodos() {
 	localStorage.setItem('todos', JSON.stringify(todos));
+	console.log('Tâches sauvegardées :', todos);
 }
 
 function createTodoElement(todo) {
@@ -28,6 +29,7 @@ function createTodoElement(todo) {
 
 	checkButton.addEventListener('click', () => {
 		todo.done = !todo.done;
+		console.log('Statut changé :', todo);
 		item.classList.toggle('done');
 
 		if (todo.done) {
@@ -49,6 +51,7 @@ function createTodoElement(todo) {
 			todos.splice(index, 1);
 		}
 
+		console.log('Tâche supprimée :', todo.text);
 		item.remove();
 		saveTodos();
 	});
@@ -67,12 +70,14 @@ function addTodo() {
 
 	const todo = { text: text, done: false };
 	todos.push(todo);
+	console.log('Tâche ajoutée :', todo);
 	list.append(createTodoElement(todo));
 
 	input.value = '';
 	saveTodos();
 }
 document.addEventListener('DOMContentLoaded', () => {
+	console.log('DOM chargé, application prête');
 	addButton.addEventListener('click', addTodo);
 
 	input.addEventListener('keydown', (event) => {
