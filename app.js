@@ -58,6 +58,21 @@ function createTodoElement(todo) {
 	return item;
 }
 
+function addTodo() {
+	const text = input.value.trim();
+
+	if (text === '') {
+		return;
+	}
+
+	const todo = { text: text, done: false };
+	todos.push(todo);
+	list.append(createTodoElement(todo));
+
+	input.value = '';
+	saveTodos();
+}
+
 //STORAGE_KEY = le nom de la clé.
 //setItem = sauvegarder.
 //getItem = récupérer.
