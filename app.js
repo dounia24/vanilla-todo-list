@@ -7,105 +7,56 @@ let todos = [];
 
 // LST
 function saveTodos() {
-    localStorage.setItem('todos', JSON.stringify(todos));
+	localStorage.setItem('todos', JSON.stringify(todos));
 }
 
 function createTodoElement(todo) {
-    const item = document.createElement('li');
-    item.classList.add('todo-item');
+	const item = document.createElement('li');
+	item.classList.add('todo-item');
 
-    const label = document.createElement('span');
-    label.textContent = todo.text;
+	const label = document.createElement('span');
+	label.textContent = todo.text;
 
-    const checkButton = document.createElement('button');
+	const checkButton = document.createElement('button');
 
-    if (todo.done) {
-        item.classList.add('done');
-        checkButton.textContent = 'À faire';
-    } else {
-        checkButton.textContent = 'Terminée';
-    }
+	if (todo.done) {
+		item.classList.add('done');
+		checkButton.textContent = 'À faire';
+	} else {
+		checkButton.textContent = 'Terminée';
+	}
 
-    checkButton.addEventListener('click', () => {
-        todo.done = !todo.done;
-        item.classList.toggle('done');
+	checkButton.addEventListener('click', () => {
+		todo.done = !todo.done;
+		item.classList.toggle('done');
 
-        if (todo.done) {
-            checkButton.textContent = 'À faire';
-        } else {
-            checkButton.textContent = 'Terminée';
-        }
+		if (todo.done) {
+			checkButton.textContent = 'À faire';
+		} else {
+			checkButton.textContent = 'Terminée';
+		}
 
-        saveTodos();
-    });
+		saveTodos();
+	});
 
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Supprimer';
+	const deleteButton = document.createElement('button');
+	deleteButton.textContent = 'Supprimer';
 
-    deleteButton.addEventListener('click', () => {
-        const index = todos.indexOf(todo);
+	deleteButton.addEventListener('click', () => {
+		const index = todos.indexOf(todo);
 
-        if (index !== -1) {
-            todos.splice(index, 1);
-        }
+		if (index !== -1) {
+			todos.splice(index, 1);
+		}
 
-        item.remove();
-        saveTodos();
-    });
+		item.remove();
+		saveTodos();
+	});
 
-    item.append(label, checkButton, deleteButton);
+	item.append(label, checkButton, deleteButton);
 
-    return item;
+	return item;
 }
-
-function addTodo() {
-    const text = input.value.trim();
-
-    if (text === '') {
-        return;
-    }
-
-    const todo = {
-        text: text,
-        done: false
-    };
-
-    todos.push(todo);
-
-    const item = createTodoElement(todo);
-    list.append(item);
-
-    input.value = '';
-
-    saveTodos();
-}
-
-// Récupérer LST
-function loadTodos() {
-    const savedTodos = localStorage.getItem('todos');
-
-    if (savedTodos !== null) {
-        todos = JSON.parse(savedTodos);
-    }
-
-    todos.forEach(todo => {
-        const item = createTodoElement(todo);
-        list.append(item);
-    });
-}
-
-
-addButton.addEventListener('click', addTodo);
-
-input.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        addTodo();
-    }
-});
-
-
-loadTodos();
-
 
 //STORAGE_KEY = le nom de la clé.
 //setItem = sauvegarder.
