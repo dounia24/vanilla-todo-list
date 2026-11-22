@@ -72,7 +72,15 @@ function addTodo() {
 	input.value = '';
 	saveTodos();
 }
+document.addEventListener('DOMContentLoaded', () => {
+	addButton.addEventListener('click', addTodo);
 
+	input.addEventListener('keydown', (event) => {
+		if (event.key === 'Enter') {
+			addTodo();
+		}
+	});
+});
 //STORAGE_KEY = le nom de la clé.
 //setItem = sauvegarder.
 //getItem = récupérer.
